@@ -17,10 +17,12 @@ router.post('/', async (req, res) => {
   try {
     const { parkingSpotId, startTime, endTime } = req.body ?? {};
 
-    // TODO S17 PROF 3:
-    // Crear la reservación utilizando el Service
-    // y responder con 201 Created.
-    res.status(501).json({ message: 'Pendiente de implementar en clase' });
+    const reservation = await reservationService.createReservation({
+      parkingSpotId,
+      startTime,
+      endTime
+    });
+    res.status(201).json(reservation);
   } catch (error) {
     if (error instanceof reservationService.ReservationError) {
       res.status(error.status).json({ message: error.message });

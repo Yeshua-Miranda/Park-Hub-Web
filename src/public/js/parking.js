@@ -76,8 +76,6 @@ async function loadSpots() {
   spotsMessage.className = '';
 
   try {
-    // TODO S17 PROF 2:
-    // Solicitar los espacios al Backend usando fetch().
     const response = await fetch('/api/spots');
 
     // TODO S17 STUDENT 3:
@@ -116,9 +114,6 @@ async function createReservation(event) {
     };
     let response;
 
-    // TODO S17 PROF 4:
-    // Enviar la reservación al Backend usando POST.
-    // Configurar method, Content-Type y body JSON.
     response = await fetch('/api/reservations', {
       method: 'POST',
       headers: {
@@ -211,11 +206,13 @@ async function cancelReservation(id) {
       throw new Error('Could not cancel reservation');
     }
 
-    reservationsMessage.textContent = 'Reservación cancelada correctamente.';
-    reservationsMessage.className = 'success';
+    reservationMessage.textContent = '';
 
     await loadSpots();
     await loadReservations();
+
+    reservationsMessage.textContent = 'Reservación cancelada correctamente.';
+    reservationsMessage.className = 'success';
 
   } catch (error) {
     console.error(error);
